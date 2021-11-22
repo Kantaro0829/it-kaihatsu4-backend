@@ -7,8 +7,8 @@ Content-Type: application/json
 
 {
     "password": "password",
-    "email": "test@gamil.com",
-    "api_key": "apiKey"
+    "email": "test2@gamil.com",
+    "lang_id": 3
 }
 
 ###
@@ -16,6 +16,11 @@ POST http://localhost:5000/login
 Content-Type: application/json
 
 {
-    "email": "example@gmail.com",
-    "password": "password"
+    "password": "password",
+    "email": "test2@gamil.com"
 }
+
+###
+
+GET http://localhost:5000/get_lang_code
+Content-Type: application/json

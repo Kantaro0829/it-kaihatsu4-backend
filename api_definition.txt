@@ -1,0 +1,23 @@
+
+/new_user_reg
+{
+    "password": String
+    "email": String
+}
+
+/login
+{
+    "email": String
+    "password": String
+}
+
+/translate
+{
+    "token": String,
+    "word": String
+}
+
+/history
+{
+    "token"
+}

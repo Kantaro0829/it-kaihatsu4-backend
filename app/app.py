@@ -1,15 +1,18 @@
 from flask import Flask, jsonify, make_response, request, abort
 import hashlib#ハッシュ化用
 from sqlalchemy import exc, func
+from sqlalchemy.sql.expression import true
+from sqlalchemy.sql.operators import istrue
 from werkzeug.exceptions import RequestURITooLarge
 from flask_cors import CORS, cross_origin
 
 
-from setting import session# セッション変数の取得
-from db import *# Userモデルの取得
+# from setting import session# セッション変数の取得
+# from db import *# Userモデルの取得
 
-from user_registry import UserLogin, UserRegistry, WordService, ToeicService
+from db import UserLogin, UserRegistry, GetLanguageCodes
 from jwt_auth import JwtAuth
+from deepl import GetTranslatedWord
 import json
 import time
 
@@ -31,19 +34,19 @@ def new_user_reg():
     {
         "password": String,
         "email": String,
-        "api_key": String
+        "lang_id: Int 
     }
 
     '''
     start = time.time()#計測開始
-    user_info = json.loads(request.get_data().decode())
-    print(user_info)
+    user_info = json.loads(request.get_data().decode())#jsonデコード
+    print(user_info)#辞書型配列
 
     #user table にレコードの追加
     try:
         ur = UserRegistry(user_info)
-        dic_temp = ur.new_user_reg()
-        jwt_auth = JwtAuth()
+        dic_temp = ur.new_user_reg()#ユーザ登録
+        jwt_auth = JwtAuth()#JsonWebToken生成用インスタンス
         #token生成
         token = jwt_auth.encode(dic_temp)
         temp = {
@@ -53,7 +56,7 @@ def new_user_reg():
 
         return jsonify(temp)
         
-    except exc.SQLAlchemyError as e:
+    except exc.SQLAlchemyError as e:#DB のエラーとメールアドレスがすでに登録されていた時の処理
         message = None
         if type(e) is exc.IntegrityError:
             message = "メールアドレスがすでに登録されています"
@@ -77,12 +80,14 @@ def login():
     user_info = json.loads(request.get_data().decode())
     try:
         ul = UserLogin(user_info)
-        id_and_apikey = ul.login()
+        id_and_lang_code = ul.login()
 
-        if id_and_apikey['id'] != 0:
+        print("out side of if")
+        if id_and_lang_code['id'] != 0:
+            print("inside of if")
             jwt_auth = JwtAuth()
-            token = jwt_auth.encode(id_and_apikey)
-
+            token = jwt_auth.encode(id_and_lang_code)
+            print("token was created")
             return jsonify({"status":200, "token":token})
 
         return jsonify({
@@ -94,6 +99,23 @@ def login():
             "status": 400,
             "message": "db のエラー？"
         })
+
+@app.route("/get_lang_code", methods=["GET"])
+@cross_origin(supports_credentials=True)
+def get_lang_code():
+    get_lang_code = GetLanguageCodes()
+    data = get_lang_code.get_all_lang_code()
+
+    if data:
+        return jsonify({"status":200, "data":data})
+    return jsonify({"status":400})
+
+
+@app.route("/translate", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def translate():
+    
+    pass
 
 
 
