@@ -59,6 +59,27 @@ INSERT INTO languages (lang_code, lang_name) VALUES
         ("SV", "Swedish"),
         ("ZH", "Chinese");
 
+CREATE TABLE historys (
+    user_id INT(8) NOT NULL,
+    before_translation text NOT NULL,
+    after_translation text NOT NULL,
+    before_lang_code varchar(40) NOT NULL,
+    after_lang_code varchar(40) NOT NULL,
+    recoded_date date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO historys 
+    (user_id, before_translation, after_translation, before_lang_code, after_lang_code, recoded_date)
+        VALUES (1,
+                "This is the official documentation for Python",
+                "Dette er den officielle dokumentation for Python",
+                "EN",
+                "DA",
+                "2019-04-17"
+                );
+
+
+
 
         
 

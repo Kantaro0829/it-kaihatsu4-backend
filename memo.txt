@@ -60,7 +60,7 @@ deepl 言語コード
     "LV": "Latvian",
     "NL": "Dutch",
     "PL": "Polish",
-    "PT-PT": "Portuguese (all Portuguese varieties excluding Brazilian Portuguese)",
+    "PT-PT": "Portuguese (excluding Brazilian)",
     "PT-BR": "Portuguese (Brazilian)",
     "RO": "Romanian",
     "RU": "Russian",

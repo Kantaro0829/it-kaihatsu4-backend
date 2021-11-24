@@ -114,8 +114,22 @@ def get_lang_code():
 @app.route("/translate", methods=["POST"])
 @cross_origin(supports_credentials=True)
 def translate():
-    
-    pass
+    """
+    受け取るjson: user_info[]
+    {
+        token: String,
+        text: String,
+    }
+    """
+    token_and_text = json.loads(request.get_data().decode())
+    jwt_auth = JwtAuth()
+    id_lang_code = jwt_auth.decode(token_and_text['token'])#tokenをデコードしてIDとLang_codeを取り出す
+    print(f'userIdと言語コード：{id_lang_code}')
+
+    deepl = GetTranslatedWord(id_lang_code['lang_code'])
+    result = deepl.request_deepl_api(token_and_text['text'])
+
+    return jsonify({"status": 200, "result": result})
 
 
 
