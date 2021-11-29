@@ -31,6 +31,6 @@ POST http://localhost:5000/translate
 Content-Type: application/json
 
 {
-    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywibGFuZ19jb2RlIjoiREEifQ.9a4bibsl9YkrYOjPPDEeijeAsmv6aLfVqiwsTO-hRL0",
+    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibGFuZ19jb2RlIjoiREEifQ.DxNv9Ch6uNV85HL-XYfvXdOsvzjDk8-jVTEApVrKDpQ",
     "text":"This is the official documentation for Python"
 }

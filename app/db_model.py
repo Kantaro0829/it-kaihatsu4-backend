@@ -34,9 +34,10 @@ class History(Base):
     """
 
     __tablename__ = "historys"
+    data_id = Column('data_id', Integer, primary_key=True)
     user_id = Column('user_id', Integer)
-    before_translation = Column('before_translation', TEXT(ength=None))
-    after_translation = Column('after_translation', TEXT(ength=None))
+    before_translation = Column('before_translation', TEXT)
+    after_translation = Column('after_translation', TEXT)
     before_lang_code = Column('before_lang_code', String(40))
     after_lang_code = Column('after_lang_code', String(40))
     recoded_date = Column('recoded_date', Date)

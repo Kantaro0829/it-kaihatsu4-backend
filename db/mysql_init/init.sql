@@ -60,6 +60,7 @@ INSERT INTO languages (lang_code, lang_name) VALUES
         ("ZH", "Chinese");
 
 CREATE TABLE historys (
+    data_id INT(8) NOT NULL,
     user_id INT(8) NOT NULL,
     before_translation text NOT NULL,
     after_translation text NOT NULL,
@@ -67,6 +68,13 @@ CREATE TABLE historys (
     after_lang_code varchar(40) NOT NULL,
     recoded_date date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE historys
+  ADD PRIMARY KEY (data_id);
+
+ALTER TABLE historys
+  MODIFY data_id int(8) AUTO_INCREMENT,AUTO_INCREMENT=1;
+
 
 INSERT INTO historys 
     (user_id, before_translation, after_translation, before_lang_code, after_lang_code, recoded_date)
