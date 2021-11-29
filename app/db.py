@@ -5,9 +5,10 @@ from sqlalchemy.sql.expression import false, true
 from sqlalchemy.sql.functions import user
 from sqlalchemy import desc, asc
 from setting import session# セッション変数の取得
-from db_model import *# Userモデルの取得
+from db_model import User, Languages, History
 import hashlib#ハッシュ化用
-import datetime
+from datetime import date
+#import datetime
 
 class UserRegistry():
 
@@ -118,3 +119,47 @@ class GetLanguageCodes():
         print(lang_code[0])
         return lang_code[0]
 
+class RegistryHistory():
+    
+    def insert_data(self, user_id, b4_trans, aft_trans, b4_lang_code, aft_lang_code):
+        """
+        data = {
+            user_id:Int, 
+            before_translation:String, after_translation:String, 
+            before_lang_code:String, after_lang_code:String, 
+            #recoded_date:date
+        }
+        """
+        today = date.today()
+        print(f'今日の日付確認用ログ：{today}')
+
+        history = History()
+        history.user_id = user_id
+        history.before_translation = b4_trans
+        history.after_translation = aft_trans
+        history.before_lang_code = b4_lang_code
+        history.after_lang_code = aft_lang_code
+        history.recoded_date = today
+
+        session.add(history)#データ登録
+        session.flush()
+        session.commit()#コミット
+
+        log_data = {
+            "user_id":history.user_id,
+            "b4_trans": history.before_translation,
+            "aft_trans": history.after_translation,
+            "b4_lang_code": history.before_lang_code,
+            "aft_lang_code": history.after_lang_code,
+            "today": history.recoded_date
+        }
+
+        print(f'登録された値：{log_data}')
+
+        if history.user_id == user_id:
+            print(f'LOG: 登録された')
+            session.close()
+            return true
+        
+        session.close
+        return false

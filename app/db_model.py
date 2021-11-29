@@ -1,7 +1,8 @@
 import sys
+from typing import Text
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Float, Date
-from sqlalchemy.sql.expression import true
+from sqlalchemy import Column, Integer, String, Float, Date, TEXT
+from sqlalchemy.sql.expression import text, true
 from setting import Base
 from setting import ENGINE
 
@@ -26,6 +27,20 @@ class Languages(Base):
     lang_id = Column('lang_id', Integer, primary_key=True)
     lang_code = Column('lang_code', String(40), unique=True)
     lang_name = Column('lang_name', String(40), unique=True)
+
+class History(Base):
+    """
+    History テーブル用
+    """
+
+    __tablename__ = "historys"
+    user_id = Column('user_id', Integer)
+    before_translation = Column('before_translation', TEXT(ength=None))
+    after_translation = Column('after_translation', TEXT(ength=None))
+    before_lang_code = Column('before_lang_code', String(40))
+    after_lang_code = Column('after_lang_code', String(40))
+    recoded_date = Column('recoded_date', Date)
+
 
 
 

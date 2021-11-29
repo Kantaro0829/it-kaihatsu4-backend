@@ -18,6 +18,14 @@ class GetTranslatedWord():
         result = request.json()
 
         print(f'{text}:{result}')
+        """
+        need 
+
+        'detected_source_language', 'self.mother_tongue', 
+        'text', 'result["translations"][0]["text"]'
+        
+        for using thease data to insert to history table
+        """
         return result["translations"][0]["text"]
 
 """
