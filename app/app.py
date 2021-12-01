@@ -10,7 +10,7 @@ from flask_cors import CORS, cross_origin
 # from setting import session# セッション変数の取得
 # from db import *# Userモデルの取得
 
-from db import UserLogin, UserRegistry, GetLanguageCodes
+from db import UserLogin, UserRegistry, GetLanguageCodes, RegistryHistory
 from jwt_auth import JwtAuth
 from deepl import GetTranslatedWord
 import json
@@ -127,9 +127,17 @@ def translate():
     print(f'userIdと言語コード：{id_lang_code}')
 
     deepl = GetTranslatedWord(id_lang_code['lang_code'])
-    result = deepl.request_deepl_api(token_and_text['text'])
+    b4_lang, aft_lang, b4_text, result_text = deepl.request_deepl_api(token_and_text['text'])
+    reg_history = RegistryHistory()
 
-    return jsonify({"status": 200, "result": result})
+    result = reg_history.insert_data(
+        id_lang_code['id'], b4_lang, aft_lang, b4_text, result_text
+    )
+
+    if result:
+        return jsonify({"status": 200, "result":result_text})
+
+    return jsonify({"status": 400,"message": "登録失敗"})
 
 
 

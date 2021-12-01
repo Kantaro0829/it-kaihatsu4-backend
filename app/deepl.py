@@ -21,12 +21,14 @@ class GetTranslatedWord():
         """
         need 
 
-        'detected_source_language', 'self.mother_tongue', 
+        result['translations'][0]['detected_source_language'], 'self.mother_tongue', 
         'text', 'result["translations"][0]["text"]'
         
         for using thease data to insert to history table
         """
-        return result["translations"][0]["text"]
+
+        return result['translations'][0]['detected_source_language'], self.mother_tongue, text, result["translations"][0]["text"]
+        #return result["translations"][0]["text"]
 
 """
 {'translations': [{'detected_source_language': 'ZH', 'text': 'ありがとうございました。'}]}

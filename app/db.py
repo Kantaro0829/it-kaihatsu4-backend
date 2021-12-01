@@ -121,7 +121,7 @@ class GetLanguageCodes():
 
 class RegistryHistory():
     
-    def insert_data(self, user_id, b4_trans, aft_trans, b4_lang_code, aft_lang_code):
+    def insert_data(self, user_id, b4_lang_code, aft_lang_code, b4_trans, aft_trans):
         """
         data = {
             user_id:Int, 
