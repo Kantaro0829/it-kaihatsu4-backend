@@ -163,3 +163,17 @@ class RegistryHistory():
         
         session.close
         return false
+    
+    def get_all_history(user_id):
+
+        history = History()
+        
+        #History Table 全件取得
+        all_history = session.query(History).\
+            fillter(History.user_id == user_id).\
+                all()
+        
+        for i in all_history:
+            print(i)
+        
+        

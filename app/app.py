@@ -139,6 +139,21 @@ def translate():
 
     return jsonify({"status": 400,"message": "登録失敗"})
 
+@app.route("/history", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def history():
+    """
+    受け取るJSON(仮)
+    {
+        token: String
+    }
+    """
+    token = json.loads(request.get_data().decode())
+    jwt_auth = JwtAuth()
+    user_id = jwt_auth.decode(token['token'])#tokenをデコードしてIDとLang_codeを取り出す
+    
+    pass
+
 
 
 if __name__ == "__main__":
