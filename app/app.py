@@ -2,6 +2,7 @@ from flask import Flask, jsonify, make_response, request, abort
 import hashlib#ハッシュ化用
 from sqlalchemy import exc, func
 from sqlalchemy.sql.expression import true
+from sqlalchemy.sql.functions import user
 from sqlalchemy.sql.operators import istrue
 from werkzeug.exceptions import RequestURITooLarge
 from flask_cors import CORS, cross_origin
@@ -150,9 +151,15 @@ def history():
     """
     token = json.loads(request.get_data().decode())
     jwt_auth = JwtAuth()
-    user_id = jwt_auth.decode(token['token'])#tokenをデコードしてIDとLang_codeを取り出す
-    
-    pass
+    id_and_lang = jwt_auth.decode(token['token'])#tokenをデコードしてIDとLang_codeを取り出す
+    rh = RegistryHistory()
+    print("user_id: ", id_and_lang['id'])
+    data = rh.get_all_history(id_and_lang['id'])
+    print(data)
+    if data:
+        return jsonify({"status":200, "data":data})
+
+    return jsonify({"status":400, "message":"faliure"})
 
 
 

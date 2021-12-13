@@ -164,16 +164,36 @@ class RegistryHistory():
         session.close
         return false
     
-    def get_all_history(user_id):
-
+    def get_all_history(self, user_id):
         history = History()
         
         #History Table 全件取得
         all_history = session.query(History).\
-            fillter(History.user_id == user_id).\
+            filter(History.user_id == user_id).\
                 all()
         
+        history_array = []
         for i in all_history:
-            print(i)
+            temp_dic = {}
+            temp_dic["data_id"] = i.data_id
+            temp_dic["user_id"] = i.user_id
+            temp_dic["before_translation"] = i.before_translation
+            temp_dic["after_translation"] = i.after_translation
+            temp_dic["before_lang_code"] = i.before_lang_code
+            temp_dic["after_lang_code"] = i.after_lang_code
+            temp_dic["recoded_date"] = i.recoded_date
+
+            history_array.append(temp_dic)
+
+            print(i.data_id)
+            print(i.user_id)
+            print(i.before_translation)
+            print(i.after_translation)
+            print(i.before_lang_code)
+            print(i.after_lang_code)
+            print(i.recoded_date)
+
+        
+        return history_array
         
         
