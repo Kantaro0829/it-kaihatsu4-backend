@@ -6,6 +6,9 @@ from sqlalchemy.sql.functions import user
 from sqlalchemy.sql.operators import istrue
 from werkzeug.exceptions import RequestURITooLarge
 from flask_cors import CORS, cross_origin
+import base64
+import qrcode
+import os
 
 
 # from setting import session# セッション変数の取得
@@ -144,7 +147,7 @@ def translate():
 @cross_origin(supports_credentials=True)
 def history():
     """
-    受け取るJSON(仮)
+    受け取るJSON
     {
         token: String
     }
@@ -161,6 +164,34 @@ def history():
 
     return jsonify({"status":400, "message":"faliure"})
 
+@app.route('/qr_code/<qr_text>')
+@cross_origin(supports_credentials=True)
+def qr_code(qr_text):
+    """
+    受け取った文字列でQRコードを作成した後、
+    base64に変換してjson形式で送信する
+    """
+    # 文字列をQRcodeにする
+    qr_img = qrcode.make(qr_text)
+    qr_img.save('./temp/qr_image.png')
+
+    with open(r"./temp/qr_image.png", 'rb') as f:
+        data = f.read()
+    encode = base64.b64encode(data).decode('utf-8')
+
+    os.remove('./temp/qr_image.png')
+    print(os.listdir('temp'))
+
+    # デコードした画像を確認の為保存する(無くてもいい)
+    # with open("qr_check.jpg", "wb") as f:
+    #     f.write(base64.b64decode(encode))
+
+    qr_data = {
+        # エンコードしたQRコード
+        "qr_data":encode,
+        "text":qr_text
+    }
+    return jsonify(qr_data)
 
 
 if __name__ == "__main__":

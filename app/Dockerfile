@@ -3,6 +3,7 @@ FROM python:3.6
 ARG project_dir=/projects/
 
 ADD requirements.txt $project_dir
+ADD temp $project_dir
 
 WORKDIR $project_dir
 

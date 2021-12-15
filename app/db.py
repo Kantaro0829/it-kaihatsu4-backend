@@ -125,8 +125,10 @@ class RegistryHistory():
         """
         data = {
             user_id:Int, 
-            before_translation:String, after_translation:String, 
-            before_lang_code:String, after_lang_code:String, 
+            before_translation:String, 
+            after_translation:String, 
+            before_lang_code:String, 
+            after_lang_code:String, 
             #recoded_date:date
         }
         """
