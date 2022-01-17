@@ -17,7 +17,7 @@ Content-Type: application/json
 
 {
     "password": "password",
-    "email": "test2@gamil.com"
+    "email": "example@gmail.com"
 }
 
 ###
@@ -41,5 +41,16 @@ POST http://localhost:5000/history
 Content-Type: application/json
 
 {
-    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibGFuZ19jb2RlIjoiREEifQ.DxNv9Ch6uNV85HL-XYfvXdOsvzjDk8-jVTEApVrKDpQ"
+    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibGFuZ19jb2RlIjoiQkcifQ._O-YOFQMUU9ZAj_U_mCucdXHs1gcO3fZTdHePMpRp2g"
+}
+
+###
+
+POST http://localhost:5000/translate_with_option
+Content-Type: application/json
+
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibGFuZ19jb2RlIjoiQkcifQ._O-YOFQMUU9ZAj_U_mCucdXHs1gcO3fZTdHePMpRp2g",
+    "text": "さようなら",
+    "to_translate_lang_id": 6
 }

@@ -1,2 +1,2 @@
 db/mysql_data/*
-app/__pycache__/*
+__pycache__/

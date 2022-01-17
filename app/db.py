@@ -1,4 +1,5 @@
 #from _typeshed import Self
+from typing_extensions import Self
 from sqlalchemy.engine import engine_from_config
 from sqlalchemy.orm.scoping import scoped_session
 from sqlalchemy.sql.expression import false, true
@@ -111,7 +112,7 @@ class GetLanguageCodes():
         print(data_list)
         return data_list
     
-    def get_one_lang_code(lang_id):
+    def get_one_lang_code(self, lang_id):
         language = Languages()
         lang_code = session.query(Languages.lang_code).\
                                     filter(Languages.lang_id == lang_id).\

@@ -42,7 +42,6 @@ def new_user_reg():
     }
 
     '''
-    start = time.time()#計測開始
     user_info = json.loads(request.get_data().decode())#jsonデコード
     print(user_info)#辞書型配列
 
@@ -142,6 +141,42 @@ def translate():
         return jsonify({"status": 200, "result":result_text})
 
     return jsonify({"status": 400,"message": "登録失敗"})
+
+@app.route("/translate_with_option", methods=["POST"])
+@cross_origin(supports_credentials=True)
+def taranslate_with_option():
+    """
+    受け取るjson: user_info[]
+    {
+        token: String,
+        text: String,
+        to_translate_lang_id
+    }
+    """
+
+    token_text_and_lang_id = json.loads(request.get_data().decode())
+    jwt_auth = JwtAuth()
+    id_lang_code = jwt_auth.decode(token_text_and_lang_id['token'])#tokenをデコードしてIDとLang_codeを取り出す
+    print(f'userIdと言語コード：{id_lang_code}')
+
+    get_lang_code = GetLanguageCodes()
+    lang_code =  get_lang_code.get_one_lang_code(token_text_and_lang_id['to_translate_lang_id'])
+
+    deepl = GetTranslatedWord(lang_code)
+    b4_lang, aft_lang, b4_text, result_text = deepl.request_deepl_api(token_text_and_lang_id['text'])
+    reg_history = RegistryHistory()
+
+    result = reg_history.insert_data(
+        id_lang_code['id'], b4_lang, aft_lang, b4_text, result_text
+    )
+
+    if result:
+        return jsonify({"status": 200, "result":result_text})
+
+    return jsonify({"status": 400,"message": "登録失敗"})
+
+    pass 
+
 
 @app.route("/history", methods=["POST"])
 @cross_origin(supports_credentials=True)
