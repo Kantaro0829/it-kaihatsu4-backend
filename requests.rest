@@ -7,7 +7,7 @@ Content-Type: application/json
 
 {
     "password": "password",
-    "email": "test2@gamil.com",
+    "email": "testtesttest@gamil.com",
     "lang_id": 3
 }
 
@@ -31,7 +31,7 @@ POST http://localhost:5000/translate
 Content-Type: application/json
 
 {
-    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MiwibGFuZ19jb2RlIjoiREEifQ.DxNv9Ch6uNV85HL-XYfvXdOsvzjDk8-jVTEApVrKDpQ",
+    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywibGFuZ19jb2RlIjoiREEifQ.9a4bibsl9YkrYOjPPDEeijeAsmv6aLfVqiwsTO-hRL0",
     "text":"This is the official documentation for Python"
 }
 
@@ -41,7 +41,7 @@ POST http://localhost:5000/history
 Content-Type: application/json
 
 {
-    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MSwibGFuZ19jb2RlIjoiQkcifQ._O-YOFQMUU9ZAj_U_mCucdXHs1gcO3fZTdHePMpRp2g"
+    "token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6MywibGFuZ19jb2RlIjoiREEifQ.9a4bibsl9YkrYOjPPDEeijeAsmv6aLfVqiwsTO-hRL0"
 }
 
 ###
