@@ -206,6 +206,8 @@ def qr_code(qr_text):
     受け取った文字列でQRコードを作成した後、
     base64に変換してjson形式で送信する
     """
+
+    qr_text = qr_text.replace('qr_text=', '', 1)
     # 文字列をQRcodeにする
     qr_img = qrcode.make(qr_text)
     qr_img.save('./temp/qr_image.png')
